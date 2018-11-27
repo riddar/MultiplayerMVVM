@@ -53,9 +53,9 @@ namespace MultiPlayer.ViewModels.ViewModels
 			RemoveFromGameCommand = new RelayCommand(OnRemoveFromGame);
 		}
 
-		private async void LoadGames()
+		private void LoadGames()
 		{
-			var games = await DataService.GetAllAsync();
+			var games = DataService.GetAll();
 			foreach (var game in games)
 			{
 				if (game.Users.Any(u => u.Id == LoginUser.Id))

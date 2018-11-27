@@ -18,6 +18,14 @@ namespace MultiPlayer.ViewModels.ViewModels
 			set { _LoginUser = value; OnPropertyChanged(); }
 		}
 
+		private Game _CreateGame;
+
+		public Game CreateGame {
+			get { return _CreateGame; }
+			set { _CreateGame = value; }
+		}
+
+
 		private Game _SelectedGame;
 		public Game SelectedGame {
 			get { return _SelectedGame; }
@@ -26,6 +34,7 @@ namespace MultiPlayer.ViewModels.ViewModels
 
 
 		public RelayCommand SaveGameCommand { get; set; }
+		public RelayCommand RemoveGameCommand { get; set; }
 
 		public CreateGameViewModel()
 		{
@@ -46,16 +55,13 @@ namespace MultiPlayer.ViewModels.ViewModels
 
 		public CreateGameViewModel(User user)
 		{
-			DataService = new GameDataService();
-			Games = new ObservableCollection<Game>();
+			DataService = new GameDataService();		
 			LoginUser = user;
-			LoadGames();
 			SaveGameCommand = new RelayCommand(OnSaveGame);
-		}
+			RemoveGameCommand = new RelayCommand(OnRemoveGame);
 
-		private async void LoadGames()
-		{
-			var games = await DataService.GetAllAsync();
+			Games = new ObservableCollection<Game>();
+			var games = DataService.GetAll();
 			foreach (var game in games)
 			{
 				if (game.Users.Any(u => u.Id == LoginUser.Id))
@@ -65,7 +71,13 @@ namespace MultiPlayer.ViewModels.ViewModels
 
 		private void OnSaveGame()
 		{
-			throw new NotImplementedException();
+			DataService.Create(CreateGame);
 		}
+
+		private void OnRemoveGame()
+		{
+			DataService.Delete(SelectedGame);
+		}
+
 	}
 }

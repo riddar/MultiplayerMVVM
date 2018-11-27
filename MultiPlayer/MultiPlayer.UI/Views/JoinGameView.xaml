@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <ListBox ItemsSource="{Binding Games, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedGame}">
+        <ListBox ItemsSource="{Binding Games, Mode=TwoWay}" SelectedItem="{Binding SelectedGame}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -41,8 +41,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        
-        
+
         <Button Grid.Row="1" Content="Join Game" Command="{Binding JoinGame}" />
     </Grid>
 

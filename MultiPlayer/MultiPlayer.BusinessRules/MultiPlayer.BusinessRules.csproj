@@ -49,7 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataServices\GameDataService.cs" />
-    <Compile Include="DataServices\Interfaces\IGameDataService.cs" />
+    <Compile Include="DataServices\Interfaces\IGameDataService1.cs" />
     <Compile Include="DataServices\Interfaces\IUserDataService.cs" />
     <Compile Include="DataServices\UserDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

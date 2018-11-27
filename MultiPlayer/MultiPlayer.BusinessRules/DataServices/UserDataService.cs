@@ -12,9 +12,13 @@ namespace MultiPlayer.BusinessRules.DataServices
 	public class UserDataService : IUserDataService
 	{
 		MultiPlayerDBContext ctx;
-		public UserDataService() => ctx = new MultiPlayerDBContext();
+		public UserDataService()
+		{
+			ctx = new MultiPlayerDBContext();
+			ctx.Configuration.ProxyCreationEnabled = false;
+		}
 
-		public async Task<IEnumerable<User>> GetAllAsync()
+		public async Task<List<User>> GetAllAsync()
 		{
 			return await ctx.Users.AsNoTracking().ToListAsync();
 		}

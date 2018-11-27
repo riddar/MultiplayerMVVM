@@ -16,7 +16,13 @@ namespace MultiPlayer.ViewModels.ViewModels
 		public JoinGameViewModel joinGameViewModel;
 		public GamesViewModel gamesViewModel;
 		public UserSettingsViewModel userSettingsViewModel;
-		public User User = new User();
+		private User _User;
+
+		public User User {
+			get { return _User; }
+			set { _User = value; OnPropertyChanged(); }
+		}
+
 
 		private ViewModelBase _CurrentViewModel;
 		public ViewModelBase CurrentViewModel {

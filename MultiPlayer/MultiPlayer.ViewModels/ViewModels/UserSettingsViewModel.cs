@@ -22,7 +22,7 @@ namespace MultiPlayer.ViewModels.ViewModels
 
 		public UserSettingsViewModel()
 		{
-			//LoginUser = new User() { Id=1, Username="test", Password="test", Firstname="test", Lastname="test", Email="test@gmail.com" };
+			LoginUser = new User() { Id=1, Username="test", Password="test", Firstname="test", Lastname="test", Email="test@gmail.com" };
 		}
 
 		public UserSettingsViewModel(User user)

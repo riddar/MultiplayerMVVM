@@ -84,7 +84,7 @@
         </Grid>
 
         <Grid x:Name = "MainContent" Grid.Column="1">
-            <ContentControl Content = "{Binding CurrentViewModel}" />
+            <ContentControl Content="{Binding CurrentViewModel}" />
         </Grid>
     </Grid>
 </Window>

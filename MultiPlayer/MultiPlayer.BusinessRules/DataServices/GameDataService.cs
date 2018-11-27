@@ -2,50 +2,59 @@
 using MultiPlayer.DataAccess.Context;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MultiPlayer.BusinessRules.DataServices
 {
-	public class GameDataService : IGameDataService
+	public class GameDataService : IGameDataService1
 	{
-		MultiPlayerDBContext ctx;
 
-		public GameDataService() => ctx = new MultiPlayerDBContext();
-
-		public async Task<IEnumerable<Game>> GetAllAsync()
+		public IEnumerable<Game> GetAll()
 		{
-			return await ctx.Games.Include(g => g.Users).AsNoTracking().ToListAsync();
+			using (var ctx = new MultiPlayerDBContext())
+				return ctx.Games.Include(g => g.Users).AsNoTracking().ToList();
 		}
 
-		public async Task<Game> GetById(int id)
+		public Game GetById(int id)
 		{
-			return await ctx.Games.Include(g => g.Users).AsNoTracking().FirstOrDefaultAsync(g => g.Id == id);
+			using (var ctx = new MultiPlayerDBContext())
+				return ctx.Games.Include(g => g.Users).AsNoTracking().FirstOrDefault(g => g.Id == id);
 		}
 
-		public async Task<Game> DeleteAsync(Game game)
+		public Game Delete(Game game)
 		{
-				Game result = await ctx.Games.Include(g => g.Users).FirstOrDefaultAsync(g => g == game);
+			using (var ctx = new MultiPlayerDBContext())
+			{
+				Game result = ctx.Games.Include(g => g.Users).FirstOrDefault(g => g == game);
 				ctx.Games.Remove(result);
-				await ctx.SaveChangesAsync();
+				ctx.SaveChanges();
 				return result;
+			}
+
 		}
 
-		public async Task<Game> UpdateAsync(Game game)
+		public Game Update(Game game)
 		{
-			ctx.Games.Attach(game);
-			ctx.Entry(game).State = EntityState.Modified;
-			await ctx.SaveChangesAsync();
-			return game;
+			using (var ctx = new MultiPlayerDBContext())
+			{
+				ctx.Games.Attach(game);
+				ctx.Entry(game).State = EntityState.Modified;
+				ctx.SaveChangesAsync();
+				return game;
+			}
 		}
 
-		public async Task<Game> CreateAsync(Game game)
+		public Game Create(Game game)
 		{
 			if (game == null)
 				return null;
-
-			ctx.Games.Add(game);
-			await ctx.SaveChangesAsync();
-			return game;
+			using (var ctx = new MultiPlayerDBContext())
+			{
+				ctx.Games.Add(game);
+				ctx.SaveChangesAsync();
+				return game;
+			}
 		}
 	}
 }
