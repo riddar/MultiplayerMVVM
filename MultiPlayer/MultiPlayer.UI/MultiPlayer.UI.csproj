@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AAD190F5-ED1E-4238-A934-FA076EB31752}</ProjectGuid>
+    <ProjectGuid>{A00AF3C4-9B04-43CE-9E6F-94406E038A73}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>MultiPlayer.UI</RootNamespace>
     <AssemblyName>MultiPlayer.UI</AssemblyName>
@@ -41,9 +41,13 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -62,24 +66,36 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\GameService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\UserService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\BindableBase.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="ViewModels\CreateGameViewModel.cs" />
+    <Compile Include="ViewModels\CreateUserViewModel.cs" />
+    <Compile Include="ViewModels\JoinGameViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\UserSettingsViewModel.cs" />
     <Compile Include="Views\CreateGameView.xaml.cs">
       <DependentUpon>CreateGameView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\GamesView.xaml.cs">
-      <DependentUpon>GamesView.xaml</DependentUpon>
+    <Compile Include="Views\CreateUserView.xaml.cs">
+      <DependentUpon>CreateUserView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JoinGameView.xaml.cs">
+      <DependentUpon>JoinGameView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserSettingsView.xaml.cs">
       <DependentUpon>UserSettingsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\CreateGameView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\GamesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\JoinGameView.xaml">
+    <Page Include="Views\CreateUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -91,13 +107,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\JoinGameView.xaml.cs">
-      <DependentUpon>JoinGameView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CreateGameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\JoinGameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserSettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,7 +142,29 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\GameService\GameDataService.wsdl" />
+    <None Include="Connected Services\GameService\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GameService\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\GameService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UserService\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UserService\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UserService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UserService\UserDataService.wsdl" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\MultiPlayer.BusinessObjects.Models.Game.datasource" />
+    <None Include="Properties\DataSources\MultiPlayer.BusinessObjects.Models.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -131,14 +174,47 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MultiPlayer.BusinessObjects\MultiPlayer.BusinessObjects.csproj">
       <Project>{6b585bad-e5bc-495c-b9fe-3bddccc7390b}</Project>
       <Name>MultiPlayer.BusinessObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MultiPlayer.ViewModels\MultiPlayer.ViewModels.csproj">
-      <Project>{e62641d2-27d1-48d3-8d3e-9bc4ee67f529}</Project>
-      <Name>MultiPlayer.ViewModels</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\GameService\" />
+    <WCFMetadataStorage Include="Connected Services\UserService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserService\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UserService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameService\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\GameService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

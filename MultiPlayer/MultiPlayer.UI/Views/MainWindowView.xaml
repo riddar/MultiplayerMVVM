@@ -3,88 +3,54 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ViewModels="clr-namespace:MultiPlayer.ViewModels.ViewModels;assembly=MultiPlayer.ViewModels"
         xmlns:Views="clr-namespace:MultiPlayer.UI.Views"
+        xmlns:ViewModels="clr-namespace:MultiPlayer.UI.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
     <Window.DataContext>
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>
 
     <Window.Resources>
-        <DataTemplate DataType = "{x:Type ViewModels:CreateGameViewModel}">
+        <DataTemplate DataType="{x:Type ViewModels:CreateGameViewModel}">
             <Views:CreateGameView />
         </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type ViewModels:JoinGameViewModel}">
+        <DataTemplate DataType="{x:Type ViewModels:JoinGameViewModel}">
             <Views:JoinGameView />
         </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type ViewModels:GamesViewModel}">
-            <Views:GamesView />
-        </DataTemplate>
-
-        <DataTemplate DataType = "{x:Type ViewModels:UserSettingsViewModel}">
+        <DataTemplate DataType="{x:Type ViewModels:UserSettingsViewModel}">
             <Views:UserSettingsView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:CreateUserViewModel}">
+            <Views:CreateUserView />
         </DataTemplate>
     </Window.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-
         <Grid Visibility="{Binding Visibility1}" Grid.ColumnSpan="2">
             <StackPanel>
                 <TextBlock Text="Username" />
-                <TextBox Text="{Binding Username}" />
+                <TextBox Text="{Binding Username}"  />
                 <TextBlock Text="Password" />
                 <TextBox Text="{Binding Password}" />
                 <Button Content="Login" Command="{Binding LoginCommand}"/>
+                <Button Content="SignUp" Command="{Binding NavCommand}" CommandParameter="CreateUser" />
                 <Button Content="Quit" Command="{Binding QuitCommand}" />
             </StackPanel>
         </Grid>
 
         <Grid Visibility="{Binding Visibility2}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height = "Auto" />
-                <RowDefinition Height = "*" />
-            </Grid.RowDefinitions>
-
-            <StackPanel x:Name = "NavBar">
-                <Button Content = "Create Game" 
-            Command = "{Binding NavCommand}"
-            CommandParameter = "CreateGame" 
-            Grid.Row = "0" />
-
-                <Button Content = "Join Game" 
-            Command = "{Binding NavCommand}"
-            CommandParameter = "JoinGame" 
-            Grid.Row = "1" />
-
-                <Button Content = "Games" 
-            Command = "{Binding NavCommand}"
-            CommandParameter = "Games" 
-            Grid.Row = "2" />
-
-                <Button Content = "Settings" 
-            Command = "{Binding NavCommand}" 
-            CommandParameter = "UserSettings" 
-            Grid.Row = "3" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <Button Content="Return" Command="{Binding NavCommand}" CommandParameter="Logout" />
+                <Button Content="Create Game" Command="{Binding NavCommand}" CommandParameter="CreateGame" Visibility="{Binding Visibility3}"/>
+                <Button Content="Join Game" Command="{Binding NavCommand}" CommandParameter="JoinGame" Visibility="{Binding Visibility3}"/>
+                <Button Content="Settings" Command="{Binding NavCommand}" CommandParameter="UserSettings" Visibility="{Binding Visibility3}"/>
             </StackPanel>
-
-            <Button Content = "Logout" 
-            Command = "{Binding NavCommand}" 
-            CommandParameter = "Logout" 
-            Grid.Row = "4" 
-            MaxHeight="50"
-            VerticalAlignment="Top"/>
-        </Grid>
-
-        <Grid x:Name = "MainContent" Grid.Column="1">
-            <ContentControl Content="{Binding CurrentViewModel}" />
+            <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}" />
         </Grid>
     </Grid>
 </Window>
