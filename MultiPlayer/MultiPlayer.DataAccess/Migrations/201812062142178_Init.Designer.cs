@@ -13,7 +13,7 @@ namespace MultiPlayer.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201811252120428_Init"; }
+            get { return "201812062142178_Init"; }
         }
         
         string IMigrationMetadata.Source

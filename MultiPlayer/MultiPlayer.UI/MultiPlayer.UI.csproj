@@ -66,16 +66,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connected Services\GameService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\UserService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\BindableBase.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ViewModels\CreateGameViewModel.cs" />
@@ -142,29 +132,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\GameService\GameDataService.wsdl" />
-    <None Include="Connected Services\GameService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\GameService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\GameService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UserService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UserService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UserService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\UserService\UserDataService.wsdl" />
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\MultiPlayer.BusinessObjects.Models.Game.datasource" />
-    <None Include="Properties\DataSources\MultiPlayer.BusinessObjects.Models.User.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -174,47 +142,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MultiPlayer.BusinessObjects\MultiPlayer.BusinessObjects.csproj">
       <Project>{6b585bad-e5bc-495c-b9fe-3bddccc7390b}</Project>
       <Name>MultiPlayer.BusinessObjects</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\GameService\" />
-    <WCFMetadataStorage Include="Connected Services\UserService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\UserService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\UserService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\UserService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\UserService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\GameService\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\GameService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\GameService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\GameService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\MultiPlayer.BusinessRules\MultiPlayer.BusinessRules.csproj">
+      <Project>{1A07A28E-5005-4F38-96C3-7229FF312D56}</Project>
+      <Name>MultiPlayer.BusinessRules</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

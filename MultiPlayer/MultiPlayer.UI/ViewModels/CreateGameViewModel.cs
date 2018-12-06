@@ -1,5 +1,5 @@
 ﻿using MultiPlayer.BusinessObjects.Models;
-using MultiPlayer.UI.GameService;
+using MultiPlayer.BusinessRules;
 using MultiPlayer.UI.Helpers;
 using System;
 using System.Collections.ObjectModel;
@@ -9,7 +9,8 @@ namespace MultiPlayer.UI.ViewModels
 {
 	public class CreateGameViewModel : BindableBase
 	{
-		IGameDataService DataService = new GameDataServiceClient();
+		IGameDataService GameDataService = new GameDataService();
+		IMatchDataService MatchDataService = new MatchDataService();
 		private ObservableCollection<Game> _games;
 		public ObservableCollection<Game> Games {
 			get { return _games; }
@@ -58,22 +59,25 @@ namespace MultiPlayer.UI.ViewModels
 
 		public void LoadGames()
 		{
-			var games = new ObservableCollection<Game>(DataService.GetAllGames());
+			var games = new ObservableCollection<Game>(GameDataService.GetAllGames());
 			Games = new ObservableCollection<Game>();
 			foreach (var game in games)
 			{
-				if (game.Users.Any(u => u.Id == LoginUser.Id) && game.Users.Count() <= 1)
+				if (game.Matches.Any(m => m.User.Id == LoginUser.Id) && game.Matches.Count() <= 1)
 					Games.Add(game);
 			}
 		}
 
 		private void OnCreateGame()
 		{
-			Game game = new Game();
+			var game = new Game();
 			game.Name = GameName;
-			game.Users.Add(LoginUser);
-			DataService.CreateGame(game);
-			Games.Add(game);
+			game = GameDataService.CreateGame(game);
+			Match match = new Match();
+			match.UserId = LoginUser.Id;
+			match.GameId = game.Id;
+			MatchDataService.CreateMatch(match);
+			LoadGames();
 		}
 
 		private bool CanCreateGame()
@@ -86,12 +90,12 @@ namespace MultiPlayer.UI.ViewModels
 
 		private void OnDeleteGame()
 		{
-			DataService.DeleteGame(SelectedGame);
+			GameDataService.DeleteGame(SelectedGame);
 		}
 
 		private bool CanDeleteGame()
 		{
-			if (SelectedGame?.Users.Count() <= 1)
+			if (SelectedGame?.Matches.Count() <= 1)
 				return true;
 
 			return false;

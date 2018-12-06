@@ -8,16 +8,16 @@ namespace MultiPlayer.BusinessRules
 	public interface IUserDataService
 	{
 		[OperationContract]
-		IEnumerable<MultiPlayer.BusinessObjects.Models.User> GetAllUsers();
+		IEnumerable<User> GetAllUsers();
 		[OperationContract]
-		MultiPlayer.BusinessObjects.Models.User CreateUser(MultiPlayer.BusinessObjects.Models.User user);
+		User CreateUser(User user);
 		[OperationContract]
-		MultiPlayer.BusinessObjects.Models.User DeleteUser(MultiPlayer.BusinessObjects.Models.User user);
+		User DeleteUser(User user);
 		[OperationContract]
-		MultiPlayer.BusinessObjects.Models.User GetUserById(int? id);
+		User GetUserById(int? id);
 		[OperationContract]
-		MultiPlayer.BusinessObjects.Models.User GetUserByName(string name);
+		User GetUserByName(string name);
 		[OperationContract]
-		MultiPlayer.BusinessObjects.Models.User UpdateUser(MultiPlayer.BusinessObjects.Models.User user);
+		User UpdateUser(User user);
 	}
 }

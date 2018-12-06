@@ -1,12 +1,12 @@
 ﻿using MultiPlayer.UI.Helpers;
 using MultiPlayer.BusinessObjects.Models;
-using MultiPlayer.UI.UserService;
+using MultiPlayer.BusinessRules;
 
 namespace MultiPlayer.UI.ViewModels
 {
 	public class UserSettingsViewModel : BindableBase
 	{
-		IUserDataService DataService = new UserDataServiceClient();
+		IUserDataService DataService = new UserDataService();
 		public RelayCommand SaveCommand { get; set; }
 		public RelayCommand CancelCommand { get; set; }
 

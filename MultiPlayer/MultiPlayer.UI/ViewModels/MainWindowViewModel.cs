@@ -1,8 +1,8 @@
-﻿using MultiPlayer.UI.UserService;
-using MultiPlayer.UI.Helpers;
+﻿using MultiPlayer.UI.Helpers;
 using System;
 using System.Windows;
 using MultiPlayer.BusinessObjects.Models;
+using MultiPlayer.BusinessRules;
 
 namespace MultiPlayer.UI.ViewModels
 {
@@ -70,7 +70,7 @@ namespace MultiPlayer.UI.ViewModels
 
 		public MainWindowViewModel()
 		{
-			DataService = new UserDataServiceClient();
+			DataService = new UserDataService();
 			Visibility1 = Visibility.Visible;
 			Visibility2 = Visibility.Hidden;
 			Visibility3 = Visibility.Hidden;

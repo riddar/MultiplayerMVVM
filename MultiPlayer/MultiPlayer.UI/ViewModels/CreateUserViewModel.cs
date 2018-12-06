@@ -1,14 +1,13 @@
 ﻿using MultiPlayer.BusinessObjects.Models;
+using MultiPlayer.BusinessRules;
 using MultiPlayer.UI.Helpers;
-using MultiPlayer.UI.UserService;
-using System;
 using System.Windows;
 
 namespace MultiPlayer.UI.ViewModels
 {
 	public class CreateUserViewModel: BindableBase
 	{
-		IUserDataService DataService = new UserDataServiceClient();
+		IUserDataService DataService = new UserDataService();
 		public RelayCommand SaveCommand { get; set; }
 
 		private string _Username;

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlayer.DataAccess", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlayer.BusinessObjects", "MultiPlayer.BusinessObjects\MultiPlayer.BusinessObjects.csproj", "{6B585BAD-E5BC-495C-B9FE-3BDDCCC7390B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlayer.BusinessRules", "MultiPlayer.BusinessRules\MultiPlayer.BusinessRules.csproj", "{19106381-7643-45E9-8E20-CB4A6546BA4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPlayer.BusinessRules", "MultiPlayer.BusinessRules\MultiPlayer.BusinessRules.csproj", "{1A07A28E-5005-4F38-96C3-7229FF312D56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{6B585BAD-E5BC-495C-B9FE-3BDDCCC7390B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B585BAD-E5BC-495C-B9FE-3BDDCCC7390B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B585BAD-E5BC-495C-B9FE-3BDDCCC7390B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{19106381-7643-45E9-8E20-CB4A6546BA4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19106381-7643-45E9-8E20-CB4A6546BA4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19106381-7643-45E9-8E20-CB4A6546BA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19106381-7643-45E9-8E20-CB4A6546BA4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A07A28E-5005-4F38-96C3-7229FF312D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A07A28E-5005-4F38-96C3-7229FF312D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A07A28E-5005-4F38-96C3-7229FF312D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A07A28E-5005-4F38-96C3-7229FF312D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

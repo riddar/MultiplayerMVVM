@@ -1,25 +1,23 @@
-﻿using MultiPlayer.DataAccess.Context;
+﻿using MultiPlayer.BusinessObjects.Models;
+using MultiPlayer.DataAccess.Context;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.ServiceModel;
 
 namespace MultiPlayer.BusinessRules
 {
-	[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
 	public class UserDataService : IDisposable, IUserDataService
 	{
 		readonly MultiPlayerDBContext context = new MultiPlayerDBContext();
-		public UserDataService() => context.Configuration.ProxyCreationEnabled = false;
 		public void Dispose() => context.Dispose();
 
-		public IEnumerable<MultiPlayer.BusinessObjects.Models.User> GetAllUsers()
+		public IEnumerable<User> GetAllUsers()
 		{
-			return context.Users.Include(u => u.Games).ToList();
+			return context.Users.Include(u => u.Matches).ToList();
 		}
 
-		public MultiPlayer.BusinessObjects.Models.User GetUserById(int? id)
+		public User GetUserById(int? id)
 		{
 			if (id == null)
 				return null;
@@ -28,40 +26,41 @@ namespace MultiPlayer.BusinessRules
 		}
 
 
-		public MultiPlayer.BusinessObjects.Models.User GetUserByName(string name)
+		public User GetUserByName(string name)
 		{
 			if (name == null)
 				return null;
 
-			return context.Users.Include(u => u.Games).FirstOrDefault(u => u.Username == name);
+			return context.Users.Include(u => u.Matches).FirstOrDefault(u => u.Username == name);
 		}
 
-		public MultiPlayer.BusinessObjects.Models.User DeleteUser(MultiPlayer.BusinessObjects.Models.User user)
+		public User DeleteUser(User user)
 		{
 			if (user == null)
 				return null;
 
-			var result = context.Users.FirstOrDefault(u => u == user);
+			var result = GetUserById(user.Id);
 
 			if (result == null)
 				return null;
 
 			context.Users.Remove(result);
+			foreach (var match in result.Matches)
+			{
+				context.Matches.Remove(match);
+			}
+
 			return user;
 		}
 
-		public MultiPlayer.BusinessObjects.Models.User UpdateUser(MultiPlayer.BusinessObjects.Models.User user)
+		public User UpdateUser(User user)
 		{
-			if (user == null)
-				return null;
-
-			context.Users.Attach(user);
-			context.Entry(user).State = EntityState.Modified;
+			context.Entry(user).State = user.Id == 0 ? EntityState.Added : EntityState.Modified;
 			context.SaveChanges();
 			return user;
 		}
 
-		public MultiPlayer.BusinessObjects.Models.User CreateUser(MultiPlayer.BusinessObjects.Models.User user)
+		public User CreateUser(User user)
 		{
 			if (user == null)
 				return null;
